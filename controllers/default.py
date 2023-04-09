@@ -7,8 +7,8 @@
 
 # ---- example index page ----
 def index():   
-    response.flash = T("Hello World")
-    return dict(message=T('Welcome to web2py!'))
+    courses= db.executesql("SELECT * FROM Courses", as_dict=True)
+    return dict(courses=courses)
 
 # ---- API (example) -----
 @auth.requires_login()
