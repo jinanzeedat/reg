@@ -6,6 +6,7 @@
 # -------------------------------------------------------------------------
 
 # ---- example index page ----
+@auth.requires_login()
 def index():   
     courses= db.executesql("SELECT * FROM Courses", as_dict=True)
     return dict(courses=courses)
