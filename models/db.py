@@ -32,7 +32,7 @@ if not request.env.web2py_runtime_gae:
     # ---------------------------------------------------------------------
     db = DAL("mysql://root:@localhost:3306/reg",
              pool_size=configuration.get('db.pool_size'),
-             migrate_enabled= False,
+             migrate_enabled= True,
              check_reserved=['all'])
 else:
     # ---------------------------------------------------------------------
