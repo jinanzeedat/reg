@@ -9,6 +9,7 @@ db.define_table('courses',
     Field('capacity','integer'),
     Field('scheduled','integer',requires=IS_IN_DB(db,'courseschedules.id','%(days)s: %(startTime)s -%(endTime)s')),
     primarykey=['code']
+    
 )
 
 db.define_table('courseschedules',
