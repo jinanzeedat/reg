@@ -22,7 +22,7 @@ def addcoursesbyuser():
 @auth.requires_login()
 def mycourses():
     #search
-    query = (db.studentsreg.studentID == auth.user_id) & (db.studentsreg.courseID == db.courses.code) &(db.studentsreg.studentID == db.students.id) 
+    query = (db.studentsreg.studentID == auth.user_id) & (db.studentsreg.courseID == db.courses.id) &(db.studentsreg.studentID == db.students.id) 
     fields=[db.courses.id,db.courses.name, db.courses.capacity,db.courses.instructor,db.courses.description]
     grid = SQLFORM.grid(query,fields=fields,csv=False,editable=False, create=False,searchable=fields)
     return dict(grid=grid)
