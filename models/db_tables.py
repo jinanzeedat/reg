@@ -1,15 +1,14 @@
 import datetime
 
 db.define_table('courses',
-    Field('code','string', required=True, notnull=True),
+    Field('id','integer', required=True, notnull=True),
     Field('name','string'),
     Field('description','string'),
-    Field('prerequisties','string','referance courses',requires=IS_IN_DB(db,'courses.code','%(code)s')),
+    Field('prerequisties','string','referance courses',requires=IS_IN_DB(db,'courses.id','%(id)s')),
     Field('instructor','string'),
     Field('capacity','integer'),
     Field('scheduled','integer',requires=IS_IN_DB(db,'courseschedules.id','%(days)s: %(startTime)s -%(endTime)s')),
-    primarykey=['code']
-    
+
 )
 
 db.define_table('courseschedules',
@@ -40,5 +39,5 @@ db.define_table('students',
 db.define_table('studentsreg',
     Field('id','integer', required=True, notnull=True),
     Field('studentID','integer',requires=IS_IN_DB(db,'students.id','%(id)s')),
-    Field('courseID','string',requires=IS_IN_DB(db,'courses.code','%(code)s')),
+    Field('courseID','integer',requires=IS_IN_DB(db,'courses.id','%(id)s')),
 )
