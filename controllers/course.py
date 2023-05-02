@@ -28,10 +28,6 @@ def mycourses():
     return dict(grid=grid)
 
 
-def courses():
-    links = [lambda row: A('Add', _href=URL('add_course', vars=dict(course_id=row.id)))]
-    grid = SQLFORM.grid(db.courses, links=links, create=False, editable=False, deletable=False,csv=False,details=False)
-    return dict(grid=grid)
 
 def add_course():
     course_id = request.vars.id
