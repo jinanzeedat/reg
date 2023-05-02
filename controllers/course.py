@@ -41,15 +41,15 @@ def add_course():
     response.flash = 'Course added to schedule!'
 
 def courses():
-    query = ((db.courses.prerequisties == None) & (~db.courses.code.belongs(db(db.studentsreg.studentID == auth.user.id).select(db.studentsreg.courseID)))) | \
+    query = ((db.courses.prerequisties == None) & (~db.courses.id.belongs(db(db.studentsreg.studentID == auth.user.id).select(db.studentsreg.courseID)))) | \
             ((db.courses.prerequisties != None) & (db.courses.prerequisties.belongs(db(db.studentsreg.status == 'Pass').select(db.studentsreg.courseID)))) & \
             (~db.courses.id.belongs(db(db.studentsreg.studentID == auth.user.id).select(db.studentsreg.courseID, join=db.courses.on(db.courses.prerequisties == db.studentsreg.courseID)))) | \
             ((db.courses.prerequisties == None) & (~db.courses.code.belongs(db(db.studentsreg.studentID == auth.user.id).select(db.studentsreg.courseID)))) | \
             ((db.courses.prerequisties.belongs(db(db.studentsreg.status == 'Pass').select(db.studentsreg.courseID))) & (~db.courses.id.belongs(db(db.studentsreg.studentID == auth.user.id).select(db.studentsreg.courseID)))) | \
-            ((db.courses.prerequisties.belongs(db(db.studentsreg.status == 'Failed').select(db.studentsreg.courseID))) & (db.courses.code.belongs(db(db.studentsreg.studentID == auth.user.id).select(db.studentsreg.courseID))))
+            ((db.courses.prerequisties.belongs(db(db.studentsreg.status == 'Failed').select(db.studentsreg.courseID))) & (db.courses.id.belongs(db(db.studentsreg.studentID == auth.user.id).select(db.studentsreg.courseID))))
 
     fields = [
-        db.courses.code,
+        db.courses.id,
         db.courses.name,
         db.courses.capacity,
         db.courses.instructor,
@@ -64,7 +64,7 @@ def courses():
         db.courseschedules.on(db.courses.scheduled == db.courseschedules.id),
     ]
    
-    links = [lambda row: A('Add', _href=URL('add_course', vars=dict(code=row.courses.code)))]
+    links = [lambda row: A('Add', _href=URL('add_course', vars=dict(code=row.courses.id)))]
     grid = SQLFORM.grid(query, fields=fields, left=left, links=links, create=False, editable=False, deletable=False, csv=False, details=False)
     return dict(grid=grid)
 
