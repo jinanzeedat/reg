@@ -45,7 +45,7 @@ def courses():
             ((db.courses.prerequisties != None) & (db.courses.prerequisties.belongs(db(db.studentsreg.status == 'Pass').select(db.studentsreg.courseID)))) & \
             (~db.courses.id.belongs(db(db.studentsreg.studentID == auth.user.id).select(db.studentsreg.courseID, join=db.courses.on(db.courses.prerequisties == db.studentsreg.courseID)))) | \
             ((db.courses.prerequisties == None) & (~db.courses.code.belongs(db(db.studentsreg.studentID == auth.user.id).select(db.studentsreg.courseID)))) | \
-            ((db.courses.prerequisties.belongs(db(db.studentsreg.status == 'Pass').select(db.studentsreg.courseID))) & (~db.courses.code.belongs(db(db.studentsreg.studentID == auth.user.id).select(db.studentsreg.courseID)))) | \
+            ((db.courses.prerequisties.belongs(db(db.studentsreg.status == 'Pass').select(db.studentsreg.courseID))) & (~db.courses.id.belongs(db(db.studentsreg.studentID == auth.user.id).select(db.studentsreg.courseID)))) | \
             ((db.courses.prerequisties.belongs(db(db.studentsreg.status == 'Failed').select(db.studentsreg.courseID))) & (db.courses.code.belongs(db(db.studentsreg.studentID == auth.user.id).select(db.studentsreg.courseID))))
 
     fields = [
