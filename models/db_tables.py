@@ -40,4 +40,5 @@ db.define_table('studentsreg',
     Field('id','integer', required=True, notnull=True),
     Field('studentID','integer',requires=IS_IN_DB(db,'students.id','%(id)s')),
     Field('courseID','integer',requires=IS_IN_DB(db,'courses.id','%(id)s')),
+    Field('status','string'),
 )
