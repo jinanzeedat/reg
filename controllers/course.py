@@ -60,7 +60,7 @@ def courses():
         db.courseschedules.on(db.courses.scheduled == db.courseschedules.id),
     ]
    
-    links = [lambda row: A('Add', _href=URL('add_course', vars=dict(code=row.courses.id)))]
+    links = [lambda row: A('Add', _href=URL('add_course', vars=dict(id=row.courses.id)))]
     grid = SQLFORM.grid(query, fields=fields, left=left, links=links, create=False, editable=False, deletable=False, csv=False, details=False)
     return dict(grid=grid)
 
