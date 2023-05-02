@@ -44,7 +44,7 @@ def courses():
     query = ((db.courses.prerequisties == None) & (~db.courses.id.belongs(db(db.studentsreg.studentID == auth.user.id).select(db.studentsreg.courseID)))) | \
             ((db.courses.prerequisties != None) & (db.courses.prerequisties.belongs(db(db.studentsreg.status == 'Pass').select(db.studentsreg.courseID)))) & \
             (~db.courses.id.belongs(db(db.studentsreg.studentID == auth.user.id).select(db.studentsreg.courseID, join=db.courses.on(db.courses.prerequisties == db.studentsreg.courseID)))) | \
-            ((db.courses.prerequisties == None) & (~db.courses.code.belongs(db(db.studentsreg.studentID == auth.user.id).select(db.studentsreg.courseID)))) | \
+            ((db.courses.prerequisties == None) & (~db.courses.id.belongs(db(db.studentsreg.studentID == auth.user.id).select(db.studentsreg.courseID)))) | \
             ((db.courses.prerequisties.belongs(db(db.studentsreg.status == 'Pass').select(db.studentsreg.courseID))) & (~db.courses.id.belongs(db(db.studentsreg.studentID == auth.user.id).select(db.studentsreg.courseID)))) | \
             ((db.courses.prerequisties.belongs(db(db.studentsreg.status == 'Failed').select(db.studentsreg.courseID))) & (db.courses.id.belongs(db(db.studentsreg.studentID == auth.user.id).select(db.studentsreg.courseID))))
 
@@ -70,7 +70,7 @@ def courses():
 
 
 def add_course():
-    course_id = request.vars.code
+    course_id = request.vars.id
     student_id = auth.user.id
     student_reg = db(db.studentsreg).select(orderby=~db.studentsreg.id).first()
     if student_reg is None:
