@@ -29,6 +29,12 @@ def mycourses():
 
 
 
+
+
+
+
+    
+
 def add_course():
     course_id = request.vars.id
     student_id = auth.user.id
